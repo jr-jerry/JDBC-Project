@@ -40,7 +40,22 @@ public class Main{
                     System.out.println(rs.getInt("age")+" "+rs.getString("name"));
                 }
                 break;
-           
+            case 3:
+                System.out.println("Update Data ");
+
+                System.out.println("enter Id you want to update ! ");
+                int id2=sc.nextInt();
+                sc.nextLine();
+
+                System.out.println("enter the updated name you want : ");
+                String updatedName=sc.nextLine();
+
+                System.out.println("Enter the updated age you want : ");
+                int updatedAge=sc.nextInt();
+
+                jdbc.updateData(id2, updatedAge, updatedName);
+
+
             default:
                 break;
            } 

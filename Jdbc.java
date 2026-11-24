@@ -11,6 +11,20 @@ public class Jdbc {
     public Jdbc(Connection connectionObj){
         this.connectionObjRef=connectionObj;
     }
+    public void updateData(int id,int age,String name){
+        try{
+            Statement statement=connectionObjRef.createStatement();
+            String query="UPDATE  student_tb SET age="+age+",name='"+name+"' where id="+id;
+
+            int rowAffected= statement.executeUpdate(query);
+
+            if(rowAffected>0){
+            System.out.println("No of row affected "+rowAffected);
+           }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
     public ResultSet getAllData(){
         ResultSet rs=null;
         try{
