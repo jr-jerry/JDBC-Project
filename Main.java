@@ -9,14 +9,18 @@ public class Main{
         Jdbc jdbc;
        
         try(Connection connection=DriverManager.getConnection(URL,USERNAME,PASSWORD);
-            Statement statement=connection.createStatement();
+             
             ){
 
             System.out.println("Enter name you want data");
             String name=sc.nextLine();
-            String readQuery="SELECT * from student_tb where name ='"+name+"'";
+            String readQuery="SELECT * from student_tb where name =?";
+            PreparedStatement preparedStatement=connection.prepareStatement(readQuery);
 
-            ResultSet rs=statement.executeQuery(readQuery);
+            preparedStatement.setString(1,name);
+
+            ResultSet rs=preparedStatement.executeQuery();
+            
             while(rs.next()){
                 System.out.println(rs.getString("name")+" "+rs.getInt("id"));
             }
