@@ -11,7 +11,7 @@ public class Main{
            
 
             jdbc=new Jdbc(connectionObjRef);
-            System.out.println("1. Insertion \n 2. Read All ");
+            System.out.println("1. Insertion \n 2. Read All \n 3. Update \n 4. Delete \n 5. Exit");
             int choice;
             System.out.println("enter choice ");
             choice=sc.nextInt();
@@ -54,8 +54,14 @@ public class Main{
                 int updatedAge=sc.nextInt();
 
                 jdbc.updateData(id2, updatedAge, updatedName);
-
-
+            case 4:
+                System.out.println("Delete Data: ");
+                 System.out.println("enter Id you want to delete ! ");
+                int delId=sc.nextInt();
+                
+                jdbc.deleteData(delId);
+            case 5:
+                System.out.println("Program Terminated ! ");
             default:
                 break;
            } 
@@ -64,6 +70,8 @@ public class Main{
         }catch(SQLException e){
             System.out.println("Exception occur to connect to database ");
             e.printStackTrace();
+        }finally{
+            sc.close();
         }
     }
 }

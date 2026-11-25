@@ -11,6 +11,20 @@ public class Jdbc {
     public Jdbc(Connection connectionObj){
         this.connectionObjRef=connectionObj;
     }
+    public void deleteData(int id){
+        try(Statement statement=connectionObjRef.createStatement()){
+
+            String query="DELETE FROM student_tb where id="+id;
+
+            int rowAffected=statement.executeUpdate(query);
+            if(rowAffected>0){
+                System.out.println("No of row affected "+rowAffected);
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
     public void updateData(int id,int age,String name){
         try{
             Statement statement=connectionObjRef.createStatement();
@@ -21,8 +35,11 @@ public class Jdbc {
             if(rowAffected>0){
             System.out.println("No of row affected "+rowAffected);
            }
+           statement.close();
         }catch(SQLException e){
             e.printStackTrace();
+        }finally{
+            
         }
     }
     public ResultSet getAllData(){
