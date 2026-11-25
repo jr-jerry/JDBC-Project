@@ -7,71 +7,21 @@ public class Main{
         String PASSWORD="admin112233admin";
         Scanner sc=new Scanner(System.in);
         Jdbc jdbc;
-        try(Connection connectionObjRef=DriverManager.getConnection(URL, USERNAME, PASSWORD)){
-           
+       
+        try(Connection connection=DriverManager.getConnection(URL,USERNAME,PASSWORD);
+            Statement statement=connection.createStatement();
+            ){
+                System.out.println("Enter Id you want data");
+            int id=sc.nextInt();
+            String readQuery="SELECT * from student_tb where id ="+id;
 
-            jdbc=new Jdbc(connectionObjRef);
-            System.out.println("1. Insertion \n 2. Read All \n 3. Update \n 4. Delete \n 5. Exit");
-            int choice;
-            System.out.println("enter choice ");
-            choice=sc.nextInt();
-
-           switch (choice) {
-            case 1:
-                System.out.println("Enter id : ");
-                int id=sc.nextInt();
-
-                
-
-                System.out.println("Enter your age ");
-                int age=sc.nextInt();
-
-                sc.nextLine();
-
-                System.out.println("Enter your name ");
-                String name=sc.nextLine();
-
-                jdbc.insertData(id,age,name);
-                break;
-            case 2:
-                ResultSet rs=jdbc.getAllData();
-
-                while(rs.next()){
-                    System.out.println(rs.getInt("age")+" "+rs.getString("name"));
-                }
-                break;
-            case 3:
-                System.out.println("Update Data ");
-
-                System.out.println("enter Id you want to update ! ");
-                int id2=sc.nextInt();
-                sc.nextLine();
-
-                System.out.println("enter the updated name you want : ");
-                String updatedName=sc.nextLine();
-
-                System.out.println("Enter the updated age you want : ");
-                int updatedAge=sc.nextInt();
-
-                jdbc.updateData(id2, updatedAge, updatedName);
-            case 4:
-                System.out.println("Delete Data: ");
-                 System.out.println("enter Id you want to delete ! ");
-                int delId=sc.nextInt();
-                
-                jdbc.deleteData(delId);
-            case 5:
-                System.out.println("Program Terminated ! ");
-            default:
-                break;
-           } 
-           
+            ResultSet rs=statement.executeQuery(readQuery);
+            while(rs.next()){
+                System.out.println(rs.getString("name")+" "+rs.getInt("id"));
+            }
             
-        }catch(SQLException e){
-            System.out.println("Exception occur to connect to database ");
+        }catch(Exception e){
             e.printStackTrace();
-        }finally{
-            sc.close();
         }
     }
 }
