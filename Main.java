@@ -11,9 +11,10 @@ public class Main{
         try(Connection connection=DriverManager.getConnection(URL,USERNAME,PASSWORD);
             Statement statement=connection.createStatement();
             ){
-                System.out.println("Enter Id you want data");
-            int id=sc.nextInt();
-            String readQuery="SELECT * from student_tb where id ="+id;
+
+            System.out.println("Enter name you want data");
+            String name=sc.nextLine();
+            String readQuery="SELECT * from student_tb where name ='"+name+"'";
 
             ResultSet rs=statement.executeQuery(readQuery);
             while(rs.next()){
